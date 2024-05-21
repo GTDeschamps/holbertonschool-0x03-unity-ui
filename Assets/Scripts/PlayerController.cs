@@ -15,13 +15,17 @@ public class PlayerController : MonoBehaviour
     public Text scoreText;
     // New public Text scoreText variable
     public Text healthText;
-    // New public Text scoreText variable
+    // New public Text healthText variable
+    public Text winLoseText;
+    //New public Text winloseText variable
+    public Image winLoseTextBackground;
+    public Image winLoseBG;
 
     void Start()
     {
            SetScoreText();
            SetHealthText();
-        // Call the method to update the score and health
+        // Call the method to update the UI
     }
 
     // Update is called once per frame
@@ -38,11 +42,15 @@ public class PlayerController : MonoBehaviour
           // Check if health is zero
         if (health == 0)
         {
-            // Log "Game Over!" to the console
-            Debug.Log("Game Over!");
+            //Lose the game
+            winLoseText.text = "Game Over";
+            winLoseText.color = Color.white;
+            winLoseTextBackground.color = Color.red;
+            // Activer WinLoseBG
+            winLoseBG.gameObject.SetActive(true);
 
-            // Reload the current scene to restart the game
-            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+            StartCoroutine(LoadScene(3));
+            //call the coroutine
         }
     }
 
@@ -68,7 +76,14 @@ public class PlayerController : MonoBehaviour
         if(other.gameObject.CompareTag("Goal"))
         {
             //win the game
-            Debug.Log("You Win!");
+            winLoseText.text = "You Win !";
+            winLoseText.color = Color.black;
+            winLoseTextBackground.color = Color.green;
+            // Activer WinLoseBG
+            winLoseBG.gameObject.SetActive(true);
+
+            StartCoroutine(LoadScene(3));
+            //call the coroutine
         }
     }
     void SetScoreText()
@@ -79,6 +94,13 @@ public class PlayerController : MonoBehaviour
     void SetHealthText()
     {
         healthText.text = "Health: " + health;
-        // Update the ScoreText object with the Player's current score
+        // Update the HealthText object with the Player's current health point
+    }
+
+    private IEnumerator LoadScene(float seconds)
+    {
+        yield return new WaitForSeconds(seconds);
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        // recharge the scene
     }
 }
