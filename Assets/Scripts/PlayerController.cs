@@ -14,11 +14,14 @@ public class PlayerController : MonoBehaviour
     // Set the score to 0
     public Text scoreText;
     // New public Text scoreText variable
+    public Text healthText;
+    // New public Text scoreText variable
 
     void Start()
     {
            SetScoreText();
-        // Call the method to update the score
+           SetHealthText();
+        // Call the method to update the score and health
     }
 
     // Update is called once per frame
@@ -58,10 +61,8 @@ public class PlayerController : MonoBehaviour
         if (other.gameObject.CompareTag("Trap"))
         {
             // Decrement the player's health
-            health--;
-
-            // Log the new health value to the console
-            Debug.Log("Health: " + health);
+            health = health -1;
+            SetHealthText();
         }
 
         if(other.gameObject.CompareTag("Goal"))
@@ -75,5 +76,9 @@ public class PlayerController : MonoBehaviour
         scoreText.text = "Score: " + score;
         // Update the ScoreText object with the Player's current score
     }
+    void SetHealthText()
+    {
+        healthText.text = "Health: " + health;
+        // Update the ScoreText object with the Player's current score
+    }
 }
-
