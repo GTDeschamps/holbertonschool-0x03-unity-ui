@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.SceneManagement; // Required for scene management
 
 
@@ -11,9 +12,13 @@ public class PlayerController : MonoBehaviour
     public int health = 5;
     private int score = 0;
     // Set the score to 0
+    public Text scoreText;
+    // New public Text scoreText variable
+
     void Start()
     {
-        // Start function can remain as is if not needed for initialization
+           SetScoreText();
+        // Call the method to update the score
     }
 
     // Update is called once per frame
@@ -42,9 +47,9 @@ public class PlayerController : MonoBehaviour
     {
         if (other.CompareTag("Pickup"))
         {
-            score++;
-            Debug.Log("Score: " + score);
             other.gameObject.SetActive(false); // Disable the object
+            score = score + 1;
+            SetScoreText(); // Update the score text
             // OR
             // Destroy(other.gameObject); // Destroy the object
         }
@@ -65,4 +70,10 @@ public class PlayerController : MonoBehaviour
             Debug.Log("You Win!");
         }
     }
+    void SetScoreText()
+    {
+        scoreText.text = "Score: " + score;
+        // Update the ScoreText object with the Player's current score
+    }
 }
+
