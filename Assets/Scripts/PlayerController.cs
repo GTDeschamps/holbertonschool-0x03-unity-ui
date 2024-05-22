@@ -39,6 +39,11 @@ public class PlayerController : MonoBehaviour
     }
     void Update()
     {
+         if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            SceneManager.LoadScene("menu");
+        }
+
           // Check if health is zero
         if (health == 0)
         {
